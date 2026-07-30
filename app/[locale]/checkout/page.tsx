@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { Locale } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { CheckoutFlow } from '@/components/checkout/CheckoutFlow';
+import { PageHead } from '@/components/sections/PageHead';
 
 export async function generateMetadata({
   params,
@@ -19,14 +20,13 @@ export default async function CheckoutPage({ params }: { params: Promise<{ local
   const dict = getDictionary(locale);
 
   return (
-    <section className="section section--top">
-      <div className="wrap">
-        <header className="pagehead">
-          <span className="eyebrow">{dict.nav.cart}</span>
-          <h1 className="title">{dict.checkout.title}</h1>
-        </header>
-        <CheckoutFlow locale={locale} dict={dict} />
-      </div>
-    </section>
+    <>
+      <PageHead eyebrow={dict.nav.cart} title={dict.checkout.title} hue={42} variant="smoke" />
+      <section className="section">
+        <div className="wrap">
+          <CheckoutFlow locale={locale} dict={dict} />
+        </div>
+      </section>
+    </>
   );
 }

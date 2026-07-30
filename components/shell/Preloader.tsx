@@ -35,13 +35,11 @@ export function Preloader({ dict }: { dict: Dictionary }) {
     const countNode = counter.current;
     if (!node || !countNode) return;
 
-    document.body.dataset.locked = 'true';
     const proxy = { value: 0 };
 
     const timeline = gsap.timeline({
       onComplete: () => {
         window.sessionStorage.setItem(SEEN_KEY, '1');
-        document.body.dataset.locked = 'false';
         setBooted(true);
         setMounted(false);
       },
@@ -56,8 +54,8 @@ export function Preloader({ dict }: { dict: Dictionary }) {
       )
       .fromTo(
         node.querySelectorAll('[data-pre-draw]'),
-        { drawSVG: undefined, strokeDasharray: 260, strokeDashoffset: 260 },
-        { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' },
+        { strokeDasharray: 260, strokeDashoffset: 260 },
+        { strokeDashoffset: 0, duration: 1.7, ease: 'power2.inOut' },
         0.15,
       )
       .to(
@@ -73,7 +71,7 @@ export function Preloader({ dict }: { dict: Dictionary }) {
         0,
       )
       .to(node.querySelector('[data-pre-bar]'), { scaleX: 1, duration: 1.9, ease: 'power1.inOut' }, 0)
-      .to(node.querySelectorAll('[data-pre-fade]'), { opacity: 0, duration: 0.4, ease: 'power2.in' }, 2.05)
+      .to(node.querySelectorAll('[data-pre-fade]'), { opacity: 0, duration: 0.4, ease: 'power2.in' }, 2.1)
       .to(
         node.querySelectorAll('[data-pre-panel]'),
         {
@@ -82,12 +80,11 @@ export function Preloader({ dict }: { dict: Dictionary }) {
           stagger: 0.06,
           ease: 'expo.inOut',
         },
-        2.15,
+        2.2,
       );
 
     return () => {
       timeline.kill();
-      document.body.dataset.locked = 'false';
     };
   }, [mounted, skip, setBooted]);
 

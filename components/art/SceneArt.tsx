@@ -15,7 +15,13 @@ export function SceneArt({ hue, variant = 'oven', className }: SceneArtProps) {
   const cool = `oklch(52% 0.07 ${(hue + 170) % 360})`;
 
   return (
-    <svg viewBox="0 0 600 760" className={`scene ${className ?? ''}`} role="img" aria-hidden="true">
+    <svg
+      viewBox="0 0 600 760"
+      className={`scene ${className ?? ''}`}
+      role="img"
+      aria-hidden="true"
+      preserveAspectRatio="xMidYMid slice"
+    >
       <defs>
         <linearGradient id={`bg-${id}`} x1="0" y1="0" x2="0.4" y2="1">
           <stop offset="0%" stopColor={deep} />
@@ -31,9 +37,6 @@ export function SceneArt({ hue, variant = 'oven', className }: SceneArtProps) {
           <stop offset="0%" stopColor={cool} stopOpacity="0.5" />
           <stop offset="100%" stopColor={cool} stopOpacity="0" />
         </radialGradient>
-        <filter id={`soft-${id}"`}>
-          <feGaussianBlur stdDeviation="18" />
-        </filter>
       </defs>
 
       <rect width="600" height="760" fill={`url(#bg-${id})`} />

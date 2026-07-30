@@ -31,7 +31,7 @@ interface UiState {
   setBooted: (value: boolean) => void;
   toast: (text: string, tone?: Toast['tone']) => void;
   dismiss: (id: number) => void;
-  /** Repaints the global accent. This is the "dynamic color" engine. */
+  /** Repaints the global accent. This is the "dynamic colour" engine. */
   setAccent: (hue: number, chroma?: number) => void;
   resetAccent: () => void;
 }
@@ -69,9 +69,10 @@ export function UiProvider({ children }: { children: ReactNode }) {
     setToasts((current) => current.filter((item) => item.id !== id));
   }, []);
 
+  // One owner for the scroll lock: overlays and the opening curtain.
   useEffect(() => {
-    document.body.dataset.locked = menuOpen || cartOpen ? 'true' : 'false';
-  }, [menuOpen, cartOpen]);
+    document.body.dataset.locked = menuOpen || cartOpen || !booted ? 'true' : 'false';
+  }, [menuOpen, cartOpen, booted]);
 
   const value = useMemo<UiState>(
     () => ({

@@ -38,10 +38,8 @@ const PATHS: Record<ArtVariant, string[]> = {
   coil: [
     'M204 60 C120 60 66 116 66 176 C66 236 124 274 196 274 C258 274 300 240 300 196 C300 156 268 130 224 130 C188 130 162 152 162 180 C162 204 180 220 204 220',
   ],
-  sliced: [
-    'M74 168 C90 108 176 82 246 106 C298 124 322 164 340 140',
-  ],
-  skewer: ['M40 176 H360'],
+  sliced: ['M74 168 C90 108 176 82 246 106 C298 124 322 164 340 140'],
+  skewer: ['M92 176 H310'],
   board: ['M84 150 C112 106 190 96 244 122', 'M96 214 C130 174 208 168 262 194'],
   ring: ['M200 76 A100 100 0 1 1 199 76'],
 };
@@ -49,7 +47,7 @@ const PATHS: Record<ArtVariant, string[]> = {
 /**
  * Every product "photograph" is drawn, not shot: a stroked casing with a
  * gradient skin, marbling speckles, char marks and a soft cast shadow.
- * Fully deterministic, zero network weight, animatable by CSS.
+ * Deterministic, zero network weight, animatable by CSS.
  */
 export function ProductArt({
   variant,
@@ -74,7 +72,7 @@ export function ProductArt({
     o: 0.16 + random() * 0.4,
   }));
 
-  const width = variant === 'skewer' ? 26 : variant === 'link' ? 40 : 46;
+  const width = variant === 'skewer' ? 30 : variant === 'link' ? 40 : 46;
 
   return (
     <svg
@@ -99,29 +97,45 @@ export function ProductArt({
           <stop offset="100%" stopColor={skin} stopOpacity="0" />
         </radialGradient>
         <filter id={`rough-${id}`} x="-12%" y="-12%" width="124%" height="124%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="2" seed="7" result="n" />
-          <feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G" />
+          <feTurbulence type="fractalNoise" baseFrequency="0.026" numOctaves="2" seed="7" result="n" />
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G" />
         </filter>
-        <clipPath id={`clip-${id}`}>
+        {/* Masks respect strokes, clip paths do not: the casing is all stroke. */}
+        <mask id={`mask-${id}`} maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="320">
           {paths.map((d, index) => (
-            <path key={index} d={d} strokeWidth={width} stroke="#000" fill="none" strokeLinecap="round" />
+            <path
+              key={index}
+              d={d}
+              fill="none"
+              stroke="#ffffff"
+              strokeWidth={width}
+              strokeLinecap="round"
+            />
           ))}
-        </clipPath>
+        </mask>
       </defs>
 
       <ellipse cx="200" cy="160" rx="175" ry="130" fill={`url(#halo-${id})`} className="art__halo" />
       <ellipse cx="206" cy="286" rx="128" ry="14" fill="oklch(24% 0.03 40)" opacity="0.16" className="art__shadow" />
 
       {variant === 'skewer' ? (
-        <g stroke="oklch(72% 0.05 84)" strokeWidth="5" strokeLinecap="round">
-          <path d="M28 176 H372" />
-        </g>
+        <path d="M28 176 H372" stroke="oklch(72% 0.05 84)" strokeWidth="5" strokeLinecap="round" fill="none" />
       ) : null}
 
       {variant === 'board' ? (
         <g>
           <rect x="48" y="88" width="304" height="152" rx="22" fill="oklch(64% 0.05 62)" opacity="0.28" />
-          <rect x="48" y="88" width="304" height="152" rx="22" fill="none" stroke="oklch(46% 0.05 60)" strokeWidth="1.5" opacity="0.5" />
+          <rect
+            x="48"
+            y="88"
+            width="304"
+            height="152"
+            rx="22"
+            fill="none"
+            stroke="oklch(46% 0.05 60)"
+            strokeWidth="1.5"
+            opacity="0.5"
+          />
         </g>
       ) : null}
 
@@ -137,7 +151,7 @@ export function ProductArt({
           />
         ))}
 
-        <g clipPath={`url(#clip-${id})`}>
+        <g mask={`url(#mask-${id})`}>
           {speckles.map((dot, index) => (
             <circle
               key={`spot-${index}`}
@@ -148,7 +162,7 @@ export function ProductArt({
               opacity={dot.o}
             />
           ))}
-          <g opacity="0.32" stroke="oklch(24% 0.02 40)" strokeWidth="3.5" strokeLinecap="round">
+          <g opacity="0.3" stroke="oklch(24% 0.02 40)" strokeWidth="3.5" strokeLinecap="round">
             <path d="M96 96 L132 250" />
             <path d="M188 74 L214 262" />
             <path d="M276 88 L302 258" />
@@ -161,10 +175,10 @@ export function ProductArt({
             d={d}
             fill="none"
             stroke={`url(#sheen-${id})`}
-            strokeWidth={width * 0.34}
+            strokeWidth={width * 0.32}
             strokeLinecap="round"
             transform={`translate(0 ${-width * 0.22})`}
-            opacity="0.55"
+            opacity="0.5"
           />
         ))}
       </g>
@@ -182,15 +196,13 @@ export function ProductArt({
       ) : null}
 
       {variant === 'ring' ? (
-        <g>
-          <path
-            d="M186 66 C196 52 214 52 224 66"
-            fill="none"
-            stroke="oklch(84% 0.03 84)"
-            strokeWidth="5"
-            strokeLinecap="round"
-          />
-        </g>
+        <path
+          d="M186 66 C196 52 214 52 224 66"
+          fill="none"
+          stroke="oklch(84% 0.03 84)"
+          strokeWidth="5"
+          strokeLinecap="round"
+        />
       ) : null}
     </svg>
   );
