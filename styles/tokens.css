@@ -1,0 +1,154 @@
+/* =========================================================
+   SalchiMrabs — design tokens
+   Color philosophy: "Humo & Brasa" (smoke & ember).
+   Charcoal ink and bone paper carry the surface; ember heat
+   is rationed; brine and herb cool the palette down so the
+   page never reads like a fast-food sign.
+   ========================================================= */
+
+:root {
+  color-scheme: light;
+
+  /* — ink (charred cocoa, never pure black) — */
+  --ink-900: oklch(16.5% 0.022 34);
+  --ink-800: oklch(22% 0.028 34);
+  --ink-700: oklch(30% 0.031 36);
+  --ink-600: oklch(38% 0.03 38);
+  --ink-500: oklch(47% 0.026 40);
+  --ink-400: oklch(58% 0.02 44);
+
+  /* — paper (bone, tinted toward the ember hue) — */
+  --paper-000: oklch(97.6% 0.01 84);
+  --paper-100: oklch(95.4% 0.014 82);
+  --paper-200: oklch(92.2% 0.019 80);
+  --paper-300: oklch(87.5% 0.024 76);
+  --paper-400: oklch(80% 0.028 72);
+
+  /* — heat & counterweights — */
+  --ember-600: oklch(50% 0.165 36);
+  --ember-500: oklch(61% 0.185 42);
+  --ember-400: oklch(72% 0.15 54);
+  --brine-600: oklch(44% 0.075 210);
+  --brine-500: oklch(57% 0.082 205);
+  --herb-500: oklch(69% 0.125 133);
+  --plum-500: oklch(44% 0.105 340);
+  --honey-500: oklch(78% 0.13 86);
+
+  /* — dynamic accent: rewritten per section and per product — */
+  --accent: var(--ember-500);
+  --accent-deep: var(--ember-600);
+  --accent-lift: var(--ember-400);
+  --accent-wash: color-mix(in oklch, var(--accent) 14%, var(--paper-000));
+  --accent-veil: color-mix(in oklch, var(--accent) 28%, transparent);
+  --accent-glow: color-mix(in oklch, var(--accent) 45%, transparent);
+
+  /* — semantic surfaces — */
+  --surface: var(--paper-000);
+  --surface-raised: var(--paper-100);
+  --surface-sunken: var(--paper-200);
+  --surface-dark: var(--ink-900);
+  --surface-dark-raised: oklch(21% 0.03 34);
+  --surface-dark-lift: oklch(26% 0.032 36);
+
+  --text: var(--ink-800);
+  --text-soft: var(--ink-500);
+  --text-faint: var(--ink-400);
+  --text-invert: oklch(95% 0.014 84);
+  --text-invert-soft: oklch(78% 0.018 78);
+
+  --line: oklch(85% 0.02 74);
+  --line-soft: oklch(90% 0.016 78);
+  --line-invert: oklch(34% 0.028 36);
+
+  --success: oklch(62% 0.13 150);
+  --warning: oklch(76% 0.14 78);
+  --danger: oklch(56% 0.17 25);
+
+  /* — spacing, 4pt base, rhythm anchored to a 24px line — */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+  --space-5xl: 12rem;
+  --section: clamp(4.5rem, 3rem + 7vw, 11rem);
+
+  /* — type — */
+  --font-display: var(--f-display), 'Iowan Old Style', Georgia, serif;
+  --font-sans: var(--f-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: var(--f-mono), ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --t-2xs: 0.6875rem;
+  --t-xs: 0.75rem;
+  --t-sm: 0.875rem;
+  --t-base: 1.0625rem;
+  --t-lg: clamp(1.25rem, 1.08rem + 0.55vw, 1.625rem);
+  --t-xl: clamp(1.75rem, 1.3rem + 1.9vw, 2.75rem);
+  --t-2xl: clamp(2.4rem, 1.6rem + 3.6vw, 4.75rem);
+  --t-3xl: clamp(3.4rem, 1.9rem + 7.4vw, 9rem);
+  --t-4xl: clamp(4.2rem, 1.6rem + 12.5vw, 14rem);
+
+  --lh-tight: 0.94;
+  --lh-snug: 1.12;
+  --lh-body: 1.5;
+  --lh-loose: 1.62;
+
+  /* — radii & elevation — */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 34px;
+  --r-pill: 999px;
+
+  --shadow-sm: 0 1px 2px oklch(20% 0.03 34 / 0.06), 0 2px 6px oklch(20% 0.03 34 / 0.04);
+  --shadow-md: 0 4px 10px oklch(20% 0.03 34 / 0.07), 0 12px 28px oklch(20% 0.03 34 / 0.06);
+  --shadow-lg: 0 10px 24px oklch(20% 0.03 34 / 0.09), 0 32px 64px oklch(20% 0.03 34 / 0.08);
+  --shadow-heat: 0 18px 48px var(--accent-veil);
+
+  /* — motion — */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-quart: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --dur-tap: 120ms;
+  --dur-state: 260ms;
+  --dur-panel: 460ms;
+  --dur-scene: 720ms;
+
+  /* — z-index scale — */
+  --z-art: 0;
+  --z-content: 10;
+  --z-sticky: 40;
+  --z-nav: 60;
+  --z-drawer: 70;
+  --z-overlay: 80;
+  --z-toast: 90;
+  --z-cursor: 95;
+  --z-preloader: 100;
+
+  /* — layout — */
+  --gutter: clamp(1.25rem, 0.6rem + 3vw, 4.5rem);
+  --measure: 68ch;
+  --nav-h: 4.5rem;
+}
+
+/* Sections can flip to the ink surface by setting data-tone="ink" */
+[data-tone='ink'] {
+  --surface: var(--surface-dark);
+  --surface-raised: var(--surface-dark-raised);
+  --surface-sunken: oklch(13% 0.02 34);
+  --text: var(--text-invert);
+  --text-soft: var(--text-invert-soft);
+  --text-faint: oklch(62% 0.02 60);
+  --line: var(--line-invert);
+  --line-soft: oklch(27% 0.024 36);
+  --accent-wash: color-mix(in oklch, var(--accent) 20%, var(--surface-dark));
+}
