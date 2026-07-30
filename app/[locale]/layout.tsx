@@ -9,6 +9,7 @@ import '@/styles/ui.css';
 import '@/styles/shell.css';
 import '@/styles/sections.css';
 import '@/styles/pages.css';
+import '@/styles/patch.css';
 
 import { isLocale, locales, type Locale } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
@@ -20,6 +21,7 @@ import { CartDrawer } from '@/components/shell/CartDrawer';
 import { MobileBar } from '@/components/shell/MobileBar';
 import { Footer } from '@/components/shell/Footer';
 import { Toasts } from '@/components/shell/Toasts';
+import { GlobalKeys } from '@/components/shell/GlobalKeys';
 import { SmoothScroll } from '@/components/motion/SmoothScroll';
 import { ScrollProgress } from '@/components/motion/ScrollProgress';
 import { Cursor } from '@/components/motion/Cursor';
@@ -57,7 +59,7 @@ export async function generateMetadata({
   const dict = getDictionary(locale);
 
   return {
-    title: { default: dict.meta.title, template: `%s · SalchiMrabs` },
+    title: { default: dict.meta.title, template: '%s · SalchiMrabs' },
     description: dict.meta.description,
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://salchimrabs.vercel.app'),
     icons: { icon: '/favicon.svg' },
@@ -94,6 +96,7 @@ export default async function LocaleLayout({
           <SmoothScroll />
           <ScrollProgress />
           <Cursor />
+          <GlobalKeys />
 
           <a className="skip" href="#main">
             {dict.nav.index}
