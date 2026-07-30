@@ -1,0 +1,31 @@
+{
+  "name": "salchimrabs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SalchiMrabs — charcuteria de altura. Immersive bilingual commerce experience built with Next.js, GSAP, Framer Motion and Three.js.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "framer-motion": "^12.0.0",
+    "gsap": "^3.13.0",
+    "lenis": "^1.1.0",
+    "next": "^15.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "three": "^0.171.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.171.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}
