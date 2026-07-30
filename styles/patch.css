@@ -1,0 +1,79 @@
+/* =========================================================
+   Late corrections layered on top of the base system.
+   Kept separate so the intent of each fix stays readable.
+   ========================================================= */
+
+/* Nav sits over ink openers on every route; a scrim keeps the
+   wordmark legible before the pinned background kicks in. */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 -40% 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, oklch(14% 0.02 34 / 0.72), transparent);
+  opacity: 1;
+  transition: opacity var(--dur-state) linear;
+}
+
+.nav[data-state='pinned']::before {
+  opacity: 0;
+}
+
+/* The mobile action bar is fixed: give the document room so the
+   footer never hides behind it. */
+@media (max-width: 899px) {
+  body {
+    padding-bottom: 64px;
+  }
+
+  /* Film grain is a full-screen blend: too expensive on phones. */
+  .grain {
+    display: none;
+  }
+
+  .hero {
+    min-height: 92svh;
+  }
+
+  .hero__line--offset {
+    padding-left: 12vw;
+  }
+}
+
+/* Preloader curtain must cover the mobile bar too. */
+.preloader {
+  padding-bottom: 0;
+}
+
+/* Turntable canvas has to receive pointer events inside the
+   product stage, which is otherwise a decorative layer. */
+.pdp__three {
+  pointer-events: auto;
+}
+
+/* Hover-only affordances get a permanent, readable state on touch. */
+@media (hover: none) {
+  .rlist__arrow {
+    opacity: 1;
+    transform: none;
+  }
+
+  .btn__wash {
+    transition-duration: 0.3s;
+  }
+}
+
+/* Long product names should never break the card grid. */
+.pcard__name,
+.rcard__title,
+.menu__linkLabel {
+  overflow-wrap: break-word;
+}
+
+/* Focus ring contrast on the ink surfaces. */
+[data-tone='ink'] :focus-visible,
+.hero :focus-visible,
+.nav :focus-visible {
+  outline-color: var(--accent-lift);
+}
