@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { SceneArt } from '@/components/art/SceneArt';
 
-export default function LocaleNotFound() {
+export default function GlobalNotFound() {
   return (
     <section className="nf" data-tone="ink">
       <div className="nf__art" aria-hidden="true">
@@ -15,12 +15,12 @@ export default function LocaleNotFound() {
           <span className="italic-serif">The oven went out.</span>
         </p>
         <div className="nf__actions">
-          <Link href="/es/catalogo" className="btn btn--solid btn--md">
-            <span className="btn__label">Ver el catálogo</span>
+          <Link href="/es" className="btn btn--solid btn--md">
+            <span className="btn__label">Volver al inicio</span>
             <span className="btn__wash" aria-hidden="true" />
           </Link>
-          <Link href="/en/catalogo" className="btn btn--outline btn--md">
-            <span className="btn__label">See the catalogue</span>
+          <Link href="/en" className="btn btn--outline btn--md">
+            <span className="btn__label">Back home</span>
             <span className="btn__wash" aria-hidden="true" />
           </Link>
         </div>
